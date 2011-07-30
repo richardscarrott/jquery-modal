@@ -1,0 +1,253 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	
+	<title>jQuery Modal Plugin</title>
+	
+	<link href="/favicon.ico" type="image/x-icon" rel="shortcut icon" />
+	<link rel="stylesheet" type="text/css" href="css/lib/demo.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="css/modal.css" media="all" />
+	
+	<script type="text/javascript" src="javascript/lib/jquery.js"></script>
+	<script type="text/javascript" src="javascript/jquery.modal.js"></script>
+	
+	<style type="text/css">
+		
+		.modal.modal-isopen img {
+			width: 100%;
+			height: 100%;
+		}
+		
+	</style>
+	
+</head>
+<body>
+	<div id="container">
+	
+		<h1>jQuery Modal Plugin</h1>
+		<p>This was written to address some issues I've experienced with <a href="http://www.ericmmartin.com/projects/simplemodal/">simplemodal</a></p>
+		
+		<p>It resolves the following problems:</p>
+		<ol>
+			<li>Dynamically sizes the modal based on it's final state, so any styles applied based on .modal * (or .'extraClasses' *) will be taken into account and the modal correctly sized.</li>
+			<li>Avoids the use of fixed positioning to ensure that users can always get to the content, even if it's out of the viewport.</li>
+			<li>Allows extra classes to be added to the container element (not just the content element) to easily change and extend different designs / 'skins'.</li>
+		</ol>
+		
+		<div id="default-modal">
+			<h1>Default</h1>
+			<p>Modal will auto size based on viewport and the default maxWidth / maxHeight - <a href="#kitchen-sink" class="modal-toggle-1">Open</a></p>
+			<pre>$.modal($('#kitchen-sink').clone());</pre>
+			
+			<script type="text/javascript">
+				$(document).ready(function() {
+					
+					$('.modal-toggle-1').click(function (e) {
+						e.preventDefault();
+						$.modal($('#kitchen-sink').clone());
+					});
+
+				});
+			</script>
+		</div>
+		
+		<div id="fixed-size-modal">
+			<h2>Fixed size</h2>
+			<p>This can be useful for images and anything you don't want to scale - <a class="modal-toggle-2" href="#kitchen-sink">Open</a></p>
+			
+<pre><code>$.modal($('#kitchen-sink').clone(), {
+	width: 800,
+	height: 800,
+	fitViewport: false,
+	maxHeight: null,
+	maxWidth: null,
+	extraClasses: 'modal-1'
+});
+</code></pre>
+			
+			<script type="text/javascript">
+				$(document).ready(function() {
+					
+					$('.modal-toggle-2').click(function (e) {
+						e.preventDefault();
+						$.modal($('#kitchen-sink').clone(), {
+							width: 800,
+							height: 800,
+							fitViewport: false,
+							maxHeight: null,
+							maxWidth: null
+						});
+					});
+
+				});
+			</script>
+		</div>
+		
+		<div id="aspect-ratio-modal">
+			<h2>Maintain Aspect Ratio</h2>
+			<p>This can be useful for images and anything you don't want to scale - <a class="modal-toggle-3" href="#kitchen-sink">Open</a></p>
+			
+<pre><code>$.modal($('&lt;img src="images/london.jpg" /&gt;'), {
+	fitViewport: false,
+	keepAspect: true
+});
+</code></pre>
+			
+			<script type="text/javascript">
+				$(document).ready(function() {
+					
+					$('.modal-toggle-3').click(function (e) {
+						e.preventDefault();
+						
+						var img = $('<img src="images/london.jpg" />');
+						
+						$.ajax({
+							url: img[0].src,
+							beforeSend: function (jqXHR) {
+								
+								// $.modal.loading takes in function to be called if loading div is closed (to abort the request)
+								$.modal.loading(function () {
+									jqXHR.abort();
+								});
+								
+							},
+							success: function () {
+								
+								$.modal(img, {
+									fitViewport: false,
+									keepAspect: true
+								});
+								
+							}
+						});	
+					});
+
+				});
+			</script>
+		</div>
+		
+		<div id="aspect-ratio-modal">
+			<h2>Maintain Aspect Ratio (scale)</h2>
+			<p>This can be useful for images and anything you don't want to scale- <a class="modal-toggle-4" href="#kitchen-sink">Open</a></p>
+			
+<pre><code>$.modal($('&lt;img src="images/london.jpg" /&gt;'), {
+	keepAspect: true
+});
+</code></pre>
+			
+			<script type="text/javascript">
+				$(document).ready(function() {
+					
+					$('.modal-toggle-4').click(function (e) {
+						e.preventDefault();
+						
+						var img = $('<img src="images/london.jpg" />');
+						
+						$.ajax({
+							url: img[0].src,
+							beforeSend: function (jqXHR) {
+								
+								// $.modal.loading takes in function to be called if loading div is closed (to abort the request)
+								$.modal.loading(function () {
+									jqXHR.abort();
+								});
+								
+							},
+							success: function () {
+								
+								$.modal(img, {
+									keepAspect: true
+								});
+								
+							}
+						});	
+					});
+
+				});
+			</script>
+		</div>
+		
+		<div id="callbacks-modal">
+			<h2>Callbacks</h2>
+			<p>This can be useful for images and anything you don't want to scale - <a class="modal-toggle-5" href="#">Open</a></p>
+			
+			<pre><code>$.modal('This modal will fire all 6 callbacks', {
+	init: function () {
+		alert('init');
+	},
+	beforeOpen: function () {
+		alert('beforeOpen');
+	},
+	afterOpen: function () {
+		alert('afterOpen');
+	},
+	beforeClose: function () {
+		alert('beforeClose');
+	},
+	afterClose: function () {
+		alert('afterClose');
+	},
+	beforeResize: function () {
+		alert('beforeResize');
+	}
+});
+</code></pre>
+			
+			<script type="text/javascript">
+				$(document).ready(function() {
+					
+					$('.modal-toggle-5').click(function (e) {
+						e.preventDefault();
+						$.modal('This modal will fire all 6 callbacks', {
+							init: function () {
+								alert('init');
+							},
+							beforeOpen: function () {
+								alert('beforeOpen');
+							},
+							afterOpen: function () {
+								alert('afterOpen');
+							},
+							beforeClose: function () {
+								alert('beforeClose');
+							},
+							afterClose: function () {
+								alert('afterClose');
+							},
+							beforeResize: function () {
+								alert('beforeResize');
+							}
+						});
+					});
+
+				});
+			</script>
+		</div>
+		
+		<div class="dummy-content" style="display: none;">
+			<div id="kitchen-sink" class="kitchen-sink">
+				<h1>HTML Ipsum Presents</h1>
+				<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+				<p><strong>Pellentesque habitant morbi tristique</strong> senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. <em>Aenean ultricies mi vitae est.</em> Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, <code>commodo vitae</code>, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. <a href="#">Donec non enim</a> in turpis pulvinar facilisis. Ut felis.</p>
+				<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+				
+				<h2>Header Level 2</h2>
+				<ol>
+				   <li>Lorem ipsum dolor sit amet, consectetuer <a href="" class="modal-content-close">jQuery.modal will search for 'options.closeSelector' and automatically listen for a click aand consequently close</a> adipiscing elit.</li>
+				   <li>Aliquam tincidunt mauris eu risus.</li>
+				</ol>
+
+				<blockquote><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus magna. Cras in mi at felis aliquet congue. Ut a est eget ligula molestie gravida. Curabitur massa. Donec eleifend, libero at sagittis mollis, tellus est malesuada tellus, at luctus turpis elit sit amet quam. Vivamus pretium ornare est.</p></blockquote>
+
+				<h3>Header Level 3</h3>
+				<ul>
+				   <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+				   <li>Aliquam tincidunt mauris eu risus.</li>
+				</ul>
+			</div>
+		</div>
+		
+	</div>
+</body>
+</html>

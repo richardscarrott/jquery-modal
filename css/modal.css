@@ -1,0 +1,88 @@
+	
+	/* functional styles */
+
+	.modal {
+		position: absolute;
+		display: none;
+		z-index:1000;
+	}
+	
+		.modal-content {
+			height: 100%;
+			overflow: auto;
+			width: 100%;
+		}
+		
+	.modal-overlay {
+		bottom: 0;
+		display: none;
+		left: 0;
+		position: fixed;
+		_position: absolute;
+		right: 0;
+		top: 0;
+		z-index: 500;
+	}
+		
+	/* aesthetic styles */
+	
+	.modal {
+		background: #fff;
+		border: 10px solid gray;
+		box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+		margin: 25px;
+		padding: 30px;
+	}
+	
+		.modal-close {
+			color: #444;
+			cursor: pointer;
+			font-size: 10px;
+			font-weight: bold;
+			position: absolute;
+			right: 8px;
+			text-decoration: none;
+			text-transform: uppercase;
+			top: 8px;
+		}
+	
+	.modal-overlay {
+		background: #000;
+		-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+		filter: alpha(opacity=50);
+		-moz-opacity: 0.5;
+		-khtml-opacity: 0.5;
+		opacity: 0.5;
+	}
+	
+	.modal-1 {
+		background: #333;
+		border-color: #444;
+		border-width: 3px;
+		color: #f2f2f2;
+		margin: 10px;
+		padding: 15px;
+	}
+	
+		.modal-1 .modal-close {
+			color: #f2f2f2;
+		}
+		
+			.modal-1 a {
+				color: yellow;
+			}
+
+	.modal-isloading {
+		background: #fff url(../images/loader.gif) center center no-repeat;
+		border: none;
+		padding: 0;
+		-moz-border-radius: 10px;
+		-webkit-border-radius: 10px;
+		border-radius: 10px;
+		width: 200px;
+		height: 200px;
+	}
+
+		.modal-isloading .modal-close {
+			display:none;
+		}
