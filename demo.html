@@ -76,7 +76,8 @@
 							height: 800,
 							fitViewport: false,
 							maxHeight: null,
-							maxWidth: null
+							maxWidth: null,
+							extraClasses: 'modal-1'
 						});
 					});
 
@@ -127,9 +128,9 @@
 			</script>
 		</div>
 		
-		<div id="aspect-ratio-modal">
+		<div id="aspect-ratio-scale-modal">
 			<h2>Maintain Aspect Ratio (scale)</h2>
-			<p>This can be useful for images and anything you don't want to scale- <a class="modal-toggle-4" href="#kitchen-sink">Open</a></p>
+			<p>This can be useful for images and anything you don't want to scale - <a class="modal-toggle-4" href="#kitchen-sink">Open</a></p>
 			
 <pre><code>$.modal($('&lt;img src="images/london.jpg" /&gt;'), {
 	keepAspect: true
@@ -172,7 +173,7 @@
 			<h2>Callbacks</h2>
 			<p>This can be useful for images and anything you don't want to scale - <a class="modal-toggle-5" href="#">Open</a></p>
 			
-			<pre><code>$.modal('This modal will fire all 6 callbacks', {
+			<pre><code>$.modal('This modal will fire all 5 callbacks', {
 	init: function () {
 		alert('init');
 	},
@@ -187,9 +188,6 @@
 	},
 	afterClose: function () {
 		alert('afterClose');
-	},
-	beforeResize: function () {
-		alert('beforeResize');
 	}
 });
 </code></pre>
@@ -199,7 +197,7 @@
 					
 					$('.modal-toggle-5').click(function (e) {
 						e.preventDefault();
-						$.modal('This modal will fire all 6 callbacks', {
+						$.modal('This modal will fire all 5 callbacks', {
 							init: function () {
 								alert('init');
 							},
@@ -234,7 +232,7 @@
 				
 				<h2>Header Level 2</h2>
 				<ol>
-				   <li>Lorem ipsum dolor sit amet, consectetuer <a href="" class="modal-content-close">jQuery.modal will search for 'options.closeSelector' and automatically listen for a click aand consequently close</a> adipiscing elit.</li>
+				   <li>Lorem ipsum dolor sit amet, consectetuer <a href="" class="modal-content-close">jQuery.modal will search for 'options.closeSelector' and automatically listen for a click and consequently close</a> adipiscing elit.</li>
 				   <li>Aliquam tincidunt mauris eu risus.</li>
 				</ol>
 

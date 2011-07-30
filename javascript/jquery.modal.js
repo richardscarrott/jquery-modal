@@ -1,5 +1,5 @@
 /*
- * jQuery Modal Plugin v0.1
+ * jQuery Modal Plugin v0.1.1
  *
  * Copyright (c) 2011 Richard Scarrott
  * http://www.richardscarrott.co.uk
@@ -18,7 +18,7 @@
 	
 	$.extend($.modal, {
 	
-		version: '0.1',
+		version: '0.1.1',
 		
 		isInitialized: false,
 		
@@ -39,9 +39,10 @@
 			extraClasses: null,
 			appendTo: 'body',
 			position: null, // [top, left],
-			closeSelector: '.modal-content-close', // when content is added to modal, jQuery.modal will find elements matching this class and bind a close event.
+			closeSelector: '.modal-content-close',
 			closeKeyCode: 27, // Esc,
 			closeOverlay: true,
+			overlayOpacity: 0.5,
 			
 			// callbacks
 			init: $.noop,
@@ -49,7 +50,6 @@
 			afterOpen: $.noop,
 			beforeClose: $.noop,
 			afterClose: $.noop
-			//beforeResize: $.noop
 		},
 		
 		_init: function (options) {
@@ -164,7 +164,7 @@
 			});
 			
 			if (this.options.modal) {
-				this.objects.overlay.fadeIn(speed);
+				this.objects.overlay.fadeTo(speed, this.options.overlayOpacity);
 			}
 			
 			this.isOpen = true;
@@ -175,13 +175,18 @@
 		refresh: function () {
 			
 			if (this.isOpen) {
+				
 				this._resetStyles();
-				this.objects.modal.removeClass('modal-isopen');
-				this.objects.modal.css(this._getPosition()).show();
-				this.objects.modal.addClass('modal-isopen');
+				this.objects.modal
+					.removeClass('modal-isopen')
+					.css(this._getPosition())
+					.addClass('modal-isopen')
+					.show();
 				
 				if (this.options.modal) {
-					this.objects.overlay.show();
+					this.objects.overlay
+						.css('opacity', this.options.overlayOpacity)
+						.show();
 				}
 			}
 			
@@ -361,10 +366,10 @@
 
 	var lteIe6 = $.browser.msie && $.browser.version.substr(0, 1) <= 6;
 	
-	if (true) {
+	if (lteIe6) {
 	
 		var _events = modal._events,
-			open = modal._open,
+			_open = modal._open,
 			close = modal.close,
 			selectBoxes;
 			
@@ -392,7 +397,8 @@
 			
 			_open: function (content, options, animate) {
 				
-				open.apply(this, arguments);
+				_open.apply(this, arguments);
+				
 				selectBoxes.css('visibility', 'hidden');
 				this._sizeOverlay();
 				
