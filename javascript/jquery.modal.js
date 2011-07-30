@@ -1,16 +1,15 @@
-
-// TODO: finish up IE 6 overlay and select box fixes
-// namespace bindings and finish destroy method - DONE
-// pass useful data back to callbacks (elements etc. - check simplemodal) DONE
-// offer options to manually specify position... DONE
-// perhaps offer an appendTo option? - DONE
-// automatically bind to .modal-close within the content? - DONE
-
-// resize calls before open and afteropen callback events, need to split this out - DONE
-
-
-// add content to callbacks?
-
+/*
+ * jQuery Modal Plugin v0.1
+ *
+ * Copyright (c) 2011 Richard Scarrott
+ * http://www.richardscarrott.co.uk
+ *
+ * Dual licensed under the MIT and GPL licenses:
+ * http://www.opensource.org/licenses/mit-license.php
+ * http://www.gnu.org/licenses/gpl.html
+ *
+ */
+ 
 (function ($, undefined) {
 
 	$.modal = function (content, options) {
@@ -18,6 +17,8 @@
 	};
 	
 	$.extend($.modal, {
+	
+		version: '0.1',
 		
 		isInitialized: false,
 		
