@@ -1,5 +1,5 @@
 /*
- * jQuery Modal Plugin v0.1.1
+ * jQuery Modal Plugin v0.1.2
  *
  * Copyright (c) 2011 Richard Scarrott
  * http://www.richardscarrott.co.uk
@@ -18,7 +18,7 @@
 	
 	$.extend($.modal, {
 	
-		version: '0.1.1',
+		version: '0.1.2',
 		
 		isInitialized: false,
 		
@@ -102,7 +102,7 @@
 				closeSelector = this.options.closeSelector ?
 					this.options.closeSelector + ', .modal-close' : '.modal-close';
 			
-			this.objects.modal.delegate(closeSelector, 'click', function (e) {
+			this.objects.modal.delegate(closeSelector, 'click.modal', function (e) {
 				e.preventDefault();
 				
 				self.close();
@@ -435,4 +435,4 @@
 	
 	}
 	
-})(jQuery, $.modal);
+})(jQuery, jQuery.modal);
