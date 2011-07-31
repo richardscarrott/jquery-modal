@@ -27,36 +27,32 @@
 	
 		<h1>jQuery Modal Plugin</h1>
 		<p>Fork on <a href="https://github.com/richardscarrott/jquery-modal">GitHub</a></p>
-		<p>This was written to address some issues I've experienced with <a href="http://www.ericmmartin.com/projects/simplemodal/">simplemodal</a></p>
+		<p>This was written to address some issues I've experienced when working with a number of existing modal plugins:</p>
 		
-		<p>It resolves the following problems:</p>
-		<ol>
-			<li>Dynamically sizes the modal based on it's final state, so any styles applied based on .modal * (or .'extraClasses' *) will be taken into account and the modal correctly sized.</li>
-			<li>Avoids the use of fixed positioning to ensure that users can always get to the content, even if it's out of the viewport.</li>
-			<li>Allows extra classes to be added to the container element (not just the content element) to easily change and extend different designs / 'skins'.</li>
-		</ol>
+		<ul>
+			<li>It dynamically sizes the modal based on it's final state, so any styles applied based on .modal * will be taken into account and the modal correctly sized.</li>
+			<li>It avoids the use of fixed positioning to ensure users can always get to the content, even if it's out of the viewport.</li>
+			<li>It allows extra classes to be added to the container element (not just the content element) to easily change and extend different 'skins'.</li>
+		</ul>
+				
+		<h1>Default</h1>
+		<p><a href="#kitchen-sink" class="modal-toggle-1">Open</a></p>
+		<pre>$.modal($('#kitchen-sink').clone());</pre>
 		
-		<div id="default-modal">
-			<h1>Default</h1>
-			<p>Modal will auto size based on viewport and the default maxWidth / maxHeight - <a href="#kitchen-sink" class="modal-toggle-1">Open</a></p>
-			<pre>$.modal($('#kitchen-sink').clone());</pre>
-			
-			<script type="text/javascript">
-				$(document).ready(function() {
-					
-					$('.modal-toggle-1').click(function (e) {
-						e.preventDefault();
-						$.modal($('#kitchen-sink').clone());
-					});
-
+		<script type="text/javascript">
+			$(document).ready(function() {
+				
+				$('.modal-toggle-1').click(function (e) {
+					e.preventDefault();
+					$.modal($('#kitchen-sink').clone());
 				});
-			</script>
-		</div>
+
+			});
+		</script>
+				
+		<h2>Fixed size</h2>
+		<p><a class="modal-toggle-2" href="#kitchen-sink">Open</a></p>
 		
-		<div id="fixed-size-modal">
-			<h2>Fixed size</h2>
-			<p>This can be useful for images and anything you don't want to scale - <a class="modal-toggle-2" href="#kitchen-sink">Open</a></p>
-			
 <pre><code>$.modal($('#kitchen-sink').clone(), {
 	width: 800,
 	height: 800,
@@ -66,113 +62,111 @@
 	extraClasses: 'modal-1'
 });
 </code></pre>
-			
-			<script type="text/javascript">
-				$(document).ready(function() {
-					
-					$('.modal-toggle-2').click(function (e) {
-						e.preventDefault();
-						$.modal($('#kitchen-sink').clone(), {
-							width: 800,
-							height: 800,
-							fitViewport: false,
-							maxHeight: null,
-							maxWidth: null,
-							extraClasses: 'modal-1'
-						});
-					});
-
-				});
-			</script>
-		</div>
 		
-		<div id="aspect-ratio-modal">
-			<h2>Maintain Aspect Ratio</h2>
-			<p>This can be useful for images and anything you don't want to scale - <a class="modal-toggle-3" href="#kitchen-sink">Open</a></p>
-			
+		<script type="text/javascript">
+			$(document).ready(function() {
+				
+				$('.modal-toggle-2').click(function (e) {
+					e.preventDefault();
+					$.modal($('#kitchen-sink').clone(), {
+						width: 800,
+						height: 800,
+						fitViewport: false,
+						maxHeight: null,
+						maxWidth: null,
+						extraClasses: 'modal-1'
+					});
+				});
+
+			});
+		</script>
+		
+		<h2>Maintain Aspect Ratio</h2>
+		<p><a class="modal-toggle-3" href="#kitchen-sink">Open</a></p>
+		
 <pre><code>$.modal($('&lt;img src="images/london.jpg" /&gt;'), {
 	fitViewport: false,
 	keepAspect: true
 });
 </code></pre>
-			
-			<script type="text/javascript">
-				$(document).ready(function() {
-					
-					$('.modal-toggle-3').click(function (e) {
-						e.preventDefault();
-						
-						var img = $('<img src="images/london.jpg" />');
-						
-						$.ajax({
-							url: img[0].src,
-							beforeSend: function (jqXHR) {
-								
-								// $.modal.loading takes in function to be called if loading div is closed (to abort the request)
-								$.modal.loading(function () {
-									jqXHR.abort();
-								});
-								
-							},
-							success: function () {
-								
-								$.modal(img, {
-									fitViewport: false,
-									keepAspect: true
-								});
-								
-							}
-						});	
-					});
-
-				});
-			</script>
-		</div>
 		
-		<div id="aspect-ratio-scale-modal">
-			<h2>Maintain Aspect Ratio (scale)</h2>
-			<p>This can be useful for images and anything you don't want to scale - <a class="modal-toggle-4" href="#kitchen-sink">Open</a></p>
-			
+		<script type="text/javascript">
+			$(document).ready(function() {
+				
+				$('.modal-toggle-3').click(function (e) {
+					e.preventDefault();
+					
+					var img = $('<img src="images/london.jpg" />');
+					
+					$.ajax({
+						url: img[0].src,
+						beforeSend: function (jqXHR) {
+							
+							// $.modal.loading takes in function to be called if loading div is closed (to abort the request)
+							$.modal.loading(function () {
+								jqXHR.abort();
+							});
+							
+						},
+						success: function () {
+							
+							$.modal(img, {
+								fitViewport: false,
+								keepAspect: true
+							});
+							
+						}
+					});	
+				});
+
+			});
+		</script>
+		
+		
+		
+		<h2>Maintain Aspect Ratio + Fit Viewport</h2>
+		<p><a class="modal-toggle-4" href="#kitchen-sink">Open</a></p>
+		
 <pre><code>$.modal($('&lt;img src="images/london.jpg" /&gt;'), {
 	keepAspect: true
 });
 </code></pre>
-			
-			<script type="text/javascript">
-				$(document).ready(function() {
+		
+		<script type="text/javascript">
+			$(document).ready(function() {
+				
+				$('.modal-toggle-4').click(function (e) {
+					e.preventDefault();
 					
-					$('.modal-toggle-4').click(function (e) {
-						e.preventDefault();
-						
-						var img = $('<img src="images/london.jpg" />');
-						
-						$.ajax({
-							url: img[0].src,
-							beforeSend: function (jqXHR) {
-								
-								// $.modal.loading takes in function to be called if loading div is closed (to abort the request)
-								$.modal.loading(function () {
-									jqXHR.abort();
-								});
-								
-							},
-							success: function () {
-								
-								$.modal(img, {
-									keepAspect: true
-								});
-								
-							}
-						});	
-					});
-
+					var img = $('<img src="images/london.jpg" />');
+					
+					$.ajax({
+						url: img[0].src,
+						beforeSend: function (jqXHR) {
+							
+							// $.modal.loading takes in function to be called if loading div is closed (to abort the request)
+							$.modal.loading(function () {
+								jqXHR.abort();
+							});
+							
+						},
+						success: function () {
+							
+							$.modal(img, {
+								keepAspect: true
+							});
+							
+						}
+					});	
 				});
-			</script>
-		</div>
+
+			});
+		</script>
+		
 		
 		<div id="callbacks-modal">
 			<h2>Callbacks</h2>
-			<p>This can be useful for images and anything you don't want to scale - <a class="modal-toggle-5" href="#">Open</a></p>
+			<p><a class="modal-toggle-5" href="#">Open</a></p>
 			
 			<pre><code>$.modal('This modal will fire all 5 callbacks', {
 	init: function () {
