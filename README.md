@@ -1,10 +1,10 @@
 ## Quick start
 	
-### JavaScript:
+### JavaScript
 
     $.modal('This is some content');
 	
-### generated mark-up
+### Generated mark-up
 
     <div class="modal-overlay"></div>
    
