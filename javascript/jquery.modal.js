@@ -1,5 +1,5 @@
 /*
- * jQuery Modal Plugin v0.1.2
+ * jQuery Modal Plugin v0.1.3
  *
  * Copyright (c) 2011 Richard Scarrott
  * http://www.richardscarrott.co.uk
@@ -18,7 +18,7 @@
 	
 	$.extend($.modal, {
 	
-		version: '0.1.2',
+		version: '0.1.3',
 		
 		isInitialized: false,
 		
@@ -200,6 +200,7 @@
 				this._open(newContent, $.extend(this.options, options));
 			}
 			
+            return;
 		},
 		
 		// helper method to indicate loading
@@ -250,7 +251,9 @@
 		// return top, left, width and height of modal
 		_getPosition: function () {
 			
-			var options = this.options,
+			var win = $(window),
+                doc = $(document),
+                options = this.options,
 				top,
 				left,
 				width = options.width,
@@ -262,12 +265,12 @@
 				boxModelWidth = this.objects.modal.outerWidth(true) - this.objects.modal.width(), // padding, border, margin
 				boxModelHeight = this.objects.modal.outerHeight(true) - this.objects.modal.height(), // padding, border, margin
 				viewport = {
-					x: $(window).width() - boxModelWidth,
-					y: $(window).height() - boxModelHeight
+					x: win.width() - boxModelWidth,
+					y: win.height() - boxModelHeight
 				},
 				scrollPos = {
-					x: $(document).scrollLeft(),
-					y: $(document).scrollTop()
+					x: doc.scrollLeft(),
+					y: doc.scrollTop()
 				},
 				centreCoords = {
 					x: (viewport.x / 2) + scrollPos.x,
@@ -349,12 +352,14 @@
 		// removes modal from DOM
 		destroy: function () {
 			
+            $(window).unbind('.modal');
+			$(document).unbind('.modal');
 			this.objects.modal.remove();
 			this.objects.overlay.remove();
-			$(window).unbind('.modal');
 			this.isOpen = false;
 			this.isInitialized = false;
 			
+            return;
 		}
 		
 	});
@@ -363,10 +368,8 @@
 
 // some IE6 nonsense
 (function ($, modal, undefined) {
-
-	var lteIe6 = $.browser.msie && $.browser.version.substr(0, 1) <= 6;
 	
-	if (lteIe6) {
+	if ($.browser.msie && $.browser.version.substr(0, 1) <= 6) {
 	
 		var _events = modal._events,
 			_open = modal._open,
@@ -375,7 +378,7 @@
 			
 		$.extend(modal, {
 			
-			_events: function (options) {
+			_events: function () {
 			
 				var self = this;
 				
@@ -395,7 +398,7 @@
 				return;
 			},
 			
-			_open: function (content, options, animate) {
+			_open: function (content, options) {
 				
 				_open.apply(this, arguments);
 				
