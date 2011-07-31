@@ -1,6 +1,6 @@
 ## Quick start
 	
-### And here's the JavaScript:
+### JavaScript:
 
     $.modal('This is some content');
 	
@@ -45,9 +45,8 @@ Defines the maxium height of the modal
 #### fitViewport: true (boolean)
 If set to true the modal will be sized to fit within the viewport
 
-
 #### keepAspect: false (boolean)
-If set to true the modal will ensure the original aspect ratio is maintained if / when resized
+If set to true the modal will maintain it's original aspect ratio if / when resized
  
 #### modal: true (boolean)
 If set to true the page will blocked with an overlay div to stop interaction
@@ -65,7 +64,7 @@ Defines any extra space seperated classes to be added to the outer .modal elemen
 Both modal and overlay are appended to this element
 
 #### position: null (array - [top, left])
-Allows final modal position to be overridden if centered isn't required
+Allows final modal position to be overridden if centering is not desired
 
 #### closeSelector: '.modal-content-close' (string)
 Any elements wihtin the modal matching the closeSelector will close the modal on click
@@ -77,11 +76,11 @@ Keycode used to close the modal, default to Esc key
 Defines whether clicking on the overlay will close the modal
 
 #### overlayOpacity: 0.5 (number)
-Defines the overlay opacity; it's within JS and not CSS to a) take advantage of jQuery's cross browser opaicty normalisation and b) because <= IE7 can't fadeIn translucent elements
+Defines the overlay opacity; it's within JS and not CSS to a) take advantage of jQuery's cross browser opacity normalisation and b) because <= IE7 can't fadeIn translucent elements
 
 ### Callbacks
 
-#### The following data is passed in to all callbacks
+#### The following data is passed to all callbacks
     
     {
         modal (jQuery object)
@@ -113,7 +112,7 @@ Displays content in modal using options, content can be a selector, element, HTM
 repositions modal, useful if content has changed
 
 #### update $.modal.update(newContent, [options])
-Replaces modal content with newContent, notably it persists options
+Replaces modal content with newContent, unlike $.modal(), options persist
 
 #### loading $.modal.loading([beforeClose])
 Helper method to show modal in a loading state, use .modal-isloading for styling.
