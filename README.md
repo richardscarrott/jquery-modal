@@ -22,9 +22,9 @@
 ### Overview
 This was written to address some issues I've experienced when working with a number of existing modal plugins:
 		
-*It dynamically sizes the modal based on it's final state, so any styles applied based on .modal * will be taken into account and the modal correctly sized.
-*It avoids the use of fixed positioning to ensure users can always get to the content, even if it's out of the viewport.
-*It allows extra classes to be added to the container element (not just the content element) to easily change and extend different 'skins'.
+* It dynamically sizes the modal based on it's final state, so any styles applied based on .modal * will be taken into account and the modal correctly sized.
+* It avoids the use of fixed positioning to ensure users can always get to the content, even if it's out of the viewport.
+* It allows extra classes to be added to the container element (not just the content element) to easily change and extend different 'skins'.
 
 ### Options
 
