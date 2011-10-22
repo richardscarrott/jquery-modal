@@ -1,5 +1,5 @@
 /*
- * jQuery Modal Plugin v0.1.3
+ * jQuery Modal Plugin v0.1.4
  *
  * Copyright (c) 2011 Richard Scarrott
  * http://www.richardscarrott.co.uk
@@ -18,7 +18,7 @@
 	
 	$.extend($.modal, {
 	
-		version: '0.1.3',
+		version: '0.1.4',
 		
 		isInitialized: false,
 		
@@ -38,7 +38,6 @@
 			closeSpeed: 'fast',
 			closeText: 'close X',
 			extraClasses: null,
-			appendTo: 'body',
 			position: null, // [top, left],
 			closeSelector: '.modal-content-close',
 			closeKeyCode: 27, // Esc,
@@ -90,10 +89,12 @@
 			this.objects.overlay = $('<div />', {
 				'class': 'modal-overlay'
 			})
-			.appendTo(this.options.appendTo);
+			.appendTo('body');
 			
-			this.objects.modal.appendTo(this.options.appendTo);
+			this.objects.modal.appendTo('body');
 
+			this.objects.win = $(window);
+			this.objects.doc = $(document);
 			this.objects.html = $('html');
 			
 			return;
@@ -105,24 +106,27 @@
 				closeSelector = this.options.closeSelector ?
 					this.options.closeSelector + ', .modal-close' : '.modal-close';
 			
-			this.objects.modal.delegate(closeSelector, 'click.modal', function (e) {
-				e.preventDefault();
-				
-				self.close();
-				
-			});
-			
-			this.objects.overlay.bind('click.modal', function (e) {
-				if (self.options.closeOverlay) {
+			this.objects.modal
+				.delegate(closeSelector, 'click.modal', function (e) {
+					e.preventDefault();
+					
 					self.close();
-				}
-			});
+					
+				});
 			
-			$(window).bind('resize.modal', function () {
-				self.refresh();
-			});
+			this.objects.overlay
+				.bind('click.modal', function (e) {
+					if (self.options.closeOverlay) {
+						self.close();
+					}
+				});
 			
-			$(document)
+			this.objects.win
+				.bind('resize.modal', function () {
+					self.refresh();
+				});
+			
+			this.objects.doc
 				.bind('keyup.modal', function (e) {
 				
 					if (e.keyCode === self.options.closeKeyCode) {
@@ -167,6 +171,7 @@
 			});
 			
 			if (this.options.modal) {
+				this._sizeOverlay();
 				this.objects.overlay.fadeTo(speed, this.options.overlayOpacity);
 			}
 			
@@ -186,6 +191,17 @@
 
 			return;
 		},
+
+		// sets height of overlay to that of document, means it's no longer
+		// relying on fixed positioning (touch devices + IE6) and body can
+		// be height: 100%
+		_sizeOverlay: function () {
+				
+			this.objects.overlay
+				.height(this.objects.doc.height());
+			
+			return;
+		},
 		
 		refresh: function () {
 			
@@ -201,6 +217,7 @@
 				this._setIsOpen(true);
 				
 				if (this.options.modal) {
+					this._sizeOverlay();
 					this.objects.overlay
 						.css('opacity', this.options.overlayOpacity)
 						.show();
@@ -367,12 +384,14 @@
 		// removes modal from DOM
 		destroy: function () {
 			
-            $(window).unbind('.modal');
-			$(document).unbind('.modal');
+            this.objects.win.unbind('.modal');
+			this.objects.doc.unbind('.modal');
 			this.objects.modal.remove();
 			this.objects.overlay.remove();
-			this.isOpen = false;
+			this._setIsOpen(false);
 			this.isInitialized = false;
+			delete this.objects;
+			delete this.options;
 			
             return;
 		}
@@ -380,77 +399,3 @@
 	});
 	
 })(jQuery);
-
-// some IE6 nonsense
-(function ($, modal, undefined) {
-	
-	if ($.browser.msie && $.browser.version.substr(0, 1) <= 6) {
-	
-		var _events = modal._events,
-			_open = modal._open,
-			close = modal.close,
-			selectBoxes;
-			
-		$.extend(modal, {
-			
-			_events: function () {
-			
-				var self = this;
-				
-				_events.apply(this, arguments);
-				
-				// dom ready
-				selectBoxes = $('select');
-				
-				$(window).bind('resize.modal', function () {
-				
-					if (self.isOpen) {
-						self._sizeOverlay();
-					}
-					
-				});
-				
-				return;
-			},
-			
-			_open: function (content, options) {
-				
-				_open.apply(this, arguments);
-				
-				selectBoxes.css('visibility', 'hidden');
-				this._sizeOverlay();
-				
-				return;
-			},
-			
-			close: function () {
-				
-				var self = this;
-				
-				close.apply(this, arguments);
-				
-				setTimeout(function () {
-				
-					selectBoxes.css('visibility', '');
-				
-				}, this.options.closeSpeed);
-				
-				return;
-			},
-			
-			_sizeOverlay: function () {
-				
-				var doc = $(document);
-					
-				this.objects.overlay
-					.width(doc.width())
-					.height(doc.height());
-				
-				return;
-			}
-			
-		});
-	
-	}
-	
-})(jQuery, jQuery.modal);

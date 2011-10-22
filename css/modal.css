@@ -4,7 +4,7 @@
 	.modal {
 		position: absolute;
 		display: none;
-		z-index:1000;
+		z-index: 1000;
 	}
 	
 		.modal-content {
@@ -14,14 +14,21 @@
 		}
 		
 	.modal-overlay {
-		bottom: 0;
 		display: none;
+		height: 100%;
 		left: 0;
-		position: fixed;
-		_position: absolute;
-		right: 0;
+		position: absolute;
 		top: 0;
+		width: 100%;
 		z-index: 500;
+	}
+
+	.modal-isopen select {
+		_visibility: hidden;
+	}
+
+	.modal-isopen .modal select {
+		_visibility: visible;
 	}
 		
 	/* aesthetic styles */
