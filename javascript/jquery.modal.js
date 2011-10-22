@@ -283,9 +283,7 @@
 		// return top, left, width and height of modal
 		_getPosition: function () {
 			
-			var win = $(window),
-                doc = $(document),
-                options = this.options,
+			var options = this.options,
 				top,
 				left,
 				width = options.width,
@@ -297,12 +295,12 @@
 				boxModelWidth = this.objects.modal.outerWidth(true) - this.objects.modal.width(), // padding, border, margin
 				boxModelHeight = this.objects.modal.outerHeight(true) - this.objects.modal.height(), // padding, border, margin
 				viewport = {
-					x: win.width() - boxModelWidth,
-					y: win.height() - boxModelHeight
+					x: this.objects.win.width() - boxModelWidth,
+					y: this.objects.win.height() - boxModelHeight
 				},
 				scrollPos = {
-					x: doc.scrollLeft(),
-					y: doc.scrollTop()
+					x: this.objects.doc.scrollLeft(),
+					y: this.objects.doc.scrollTop()
 				},
 				centreCoords = {
 					x: (viewport.x / 2) + scrollPos.x,
