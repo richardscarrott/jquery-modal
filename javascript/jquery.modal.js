@@ -92,6 +92,8 @@
 			.appendTo(this.options.appendTo);
 			
 			this.objects.modal.appendTo(this.options.appendTo);
+
+			this.objects.html = $('html');
 			
 			return;
 		},
@@ -148,7 +150,8 @@
 			}
 			
 			this._resetStyles();
-			
+			this._setIsOpen(false);
+
 			this.objects.modal
 				.removeClass()
 				// add '.modal' back as it's been removed above (cannot just remove extraClasses, in cases where extraClasses have changed) 
@@ -156,19 +159,30 @@
 				.css(this._getPosition());
 			
 			this.options.beforeOpen(this.objects);
+			this._setIsOpen(true);
+
 			this.objects.modal.fadeIn(speed, function () {
-				
-				self.objects.modal.addClass('modal-isopen');
 				self.options.afterOpen(self.objects);
-				
 			});
 			
 			if (this.options.modal) {
 				this.objects.overlay.fadeTo(speed, this.options.overlayOpacity);
 			}
 			
-			this.isOpen = true;
+			return;
+		},
+
+		_setIsOpen: function (val) {
 			
+			if (val) {
+				this.isOpen = true;
+				this.objects.html.addClass('modal-isopen');
+			}
+			else {
+				this.isOpen = false;
+				this.objects.html.removeClass('modal-isopen');
+			}
+
 			return;
 		},
 		
@@ -177,11 +191,13 @@
 			if (this.isOpen) {
 				
 				this._resetStyles();
+				this._setIsOpen(false);
+
 				this.objects.modal
-					.removeClass('modal-isopen')
 					.css(this._getPosition())
-					.addClass('modal-isopen')
 					.show();
+
+				this._setIsOpen(true);
 				
 				if (this.options.modal) {
 					this.objects.overlay
@@ -224,7 +240,7 @@
 			this.objects.modal.fadeOut(speed, function () {
 			
 				self._resetStyles();
-				self.objects.modal.removeClass('modal-isopen');
+				self._setIsOpen(false);
 				self.options.afterClose(self.objects);
 				
 			});
@@ -232,8 +248,6 @@
 			if (this.options.modal) {
 				this.objects.overlay.fadeOut(speed);
 			}
-			
-			this.isOpen = false;
 			
 			return;
 		},
