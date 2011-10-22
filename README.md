@@ -49,17 +49,17 @@ If set to true the modal will maintain it's original aspect ratio if / when resi
 #### modal: true (boolean)
 If set to true the page will blocked with an overlay div to stop interaction
 
-#### transitionSpeed: 200 (string, number)
-Defines speed modal will fadein. Can take any standard jQuery speed strings or number
+#### openSpeed: 'fast' (string, number)
+Defines speed modal will fade in. Can take any standard jQuery speed strings or number
+
+#### closeSpeed: 'fast' (string, number)
+Defines speed modal will fade out. Can take any standard jQuery speed strings or number
 
 #### closeText: 'close X' (string)
 Defines text to be applied to close element
 
 #### extraClasses: null (string)
 Defines any extra space seperated classes to be added to the outer .modal element
-
-#### appendTo: 'body' (string, element, jQuery object)
-Both modal and overlay are appended to this element
 
 #### position: null (array - [top, left])
 Allows final modal position to be overridden if centering is not desired
