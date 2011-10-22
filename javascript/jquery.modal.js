@@ -34,7 +34,8 @@
 			fitViewport: true,
 			keepAspect: false,
 			modal: true,
-			transitionSpeed: 200,
+			openSpeed: 'fast',
+			closeSpeed: 'fast',
 			closeText: 'close X',
 			extraClasses: null,
 			appendTo: 'body',
@@ -141,7 +142,7 @@
 			
 			this._init(options);
 			
-			speed = this.isOpen ? 0 : this.options.transitionSpeed;
+			speed = this.isOpen ? 0 : this.options.openSpeed;
 			
 			this.objects.content.empty();
 			
@@ -233,7 +234,7 @@
 		close: function (animate) {
 		
 			var self = this,
-				speed = animate || animate === undefined ? this.options.transitionSpeed : 0;
+				speed = animate || animate === undefined ? this.options.closeSpeed : 0;
 			
 			this.options.beforeClose(this.objects);
 			
@@ -432,7 +433,7 @@
 				
 					selectBoxes.css('visibility', '');
 				
-				}, this.options.transitionSpeed);
+				}, this.options.closeSpeed);
 				
 				return;
 			},
