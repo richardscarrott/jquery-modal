@@ -75,7 +75,6 @@
 			}
 
 	.modal-isloading {
-		background: #fff url(../images/loader.gif) center center no-repeat;
 		border: none;
 		padding: 0;
 		-moz-border-radius: 10px;
@@ -84,6 +83,11 @@
 		width: 50px;
 		height: 50px;
 	}
+
+		/* NOTE: #2 if using an _animated_ gif IE7 requires it to be set on .modal-content not .modal otherwise the scrollbars will flicker */
+		.modal-isloading .modal-content {
+			background: #fff url(../images/loader.gif) center center no-repeat;
+		}
 
 		.modal-isloading .modal-close {
 			display:none;
