@@ -2,7 +2,7 @@
 	
 ### JavaScript
 
-    $.modal('This is some content');
+    $.modal.open('This is some content');
 	
 ### Generated mark-up
 
@@ -14,7 +14,7 @@
             <!-- content -->
             
         </div>
-        <span class="modal-close">close X</span>
+        <a href="#" class="modal-close">close X</a>
     </div>
 
 ## DOCS
@@ -23,8 +23,10 @@
 This was written to address some issues I've experienced when working with a number of existing modal plugins:
 		
 * It dynamically sizes the modal based on it's final state, so any styles applied based on .modal * will be taken into account and the modal correctly sized.
-* It avoids the use of fixed positioning to ensure users can always get to the content, even if it's out of the viewport.
+* It avoids the use of fixed positioning to ensure users can always get to the content even if it's outside of the viewport which also means it supports touch devices and IE6.
 * It allows extra classes to be added to the container element (not just the content element) to easily change and extend different 'skins'.
+* It provides a constructor function to allow for multiple instances.
+* It correctly positions itself on touch devices, even when zoomed in.
 
 ### Options
 
@@ -34,13 +36,13 @@ Defines the width of the modal, if set to 'auto' the width will be automatically
 #### height: 'auto' (string, number)
 Defines the height of the modal, if set to 'auto' the height will be automatically calculated based on size of content
 
-#### maxWidth: 600 (number)
+#### maxWidth: null (number)
 Defines the maxium width of the modal
 
-#### maxHeight: 600 (number)
+#### maxHeight: null (number)
 Defines the maxium height of the modal
 
-#### fitViewport: true (boolean)
+#### fitViewport: false (boolean)
 If set to true the modal will be sized to fit within the viewport
 
 #### keepAspect: false (boolean)
@@ -103,11 +105,11 @@ See tin
 See tin
 
 ### Methods
-#### modal $.modal(content, [options])
+#### open $.modal.open(content, [options])
 Displays content in modal using options, content can be a selector, element, HTML string, or jQuery object (anything $.fn.append() can take)
 
 #### refresh $.modal.refresh()
-repositions modal, useful if content has changed
+Repositions modal, useful if content has changed
 
 #### update $.modal.update(newContent, [options])
 Replaces modal content with newContent, unlike $.modal(), options persist
@@ -121,5 +123,30 @@ Closes modal, pass in boolean to define whether close should fade out
 
 #### destroy $.modal.destroy()
 Removes modal from DOM and unbinds all associated events
+
+### Constructor
+#### new $.Modal(name, [defaults])
+Creates new instance of $.Modal where name (string) is used as a prefix for the generated mark-ups classNames and defaults (object) is merged in with the above options to specialise the instance.
+
+    var myModal = new $.Modal('mymodal', {
+        maxWidth: 500,
+        maxHeight: 600,
+        fitViewport: true,
+        closeText: 'X'
+    });
+
+    myModal.open('this is some content');
+
+    // Generated mark-up
+    <div class="mymodal-overlay"></div>
+   
+    <div class="mymodal">
+        <div class="mymodal-content">
+            
+            <!-- content -->
+            
+        </div>
+        <span class="mymodal-close">X</span>
+    </div>
 
 [If you have any questions or ideas you can contact me here](http://richardscarrott.co.uk/contact "Richard Scarrott")

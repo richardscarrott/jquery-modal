@@ -20,6 +20,26 @@
 		}
 		
 	</style>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+			// for lack of a better name create 'modal2'
+			var modal2 = new $.Modal('modal2');
+
+			$('body')
+				.delegate('.open-modal2', 'click', function (e) {
+					e.preventDefault();
+					modal2.open($('#kitchen-sink').clone(), {
+						width: 500,
+						height: 500,
+						fitViewport: true,
+						extraClasses: 'modal-alt',
+						overlayOpacity: 0
+					});
+				});
+		});
+	</script>
 	
 </head>
 <body>
@@ -31,35 +51,42 @@
 		
 		<ul>
 			<li>It dynamically sizes the modal based on it's final state, so any styles applied based on .modal * will be taken into account and the modal correctly sized.</li>
-			<li>It avoids the use of fixed positioning to ensure users can always get to the content, even if it's out of the viewport.</li>
+			<li>It avoids the use of fixed positioning to ensure users can always get to the content even if it's outside of the viewport which also means it supports touch devices and IE6.</li>
 			<li>It allows extra classes to be added to the container element (not just the content element) to easily change and extend different 'skins'.</li>
+			<li>It provides a constructor function to allow for multiple instances.</li>
+			<li>It correctly positions itself on touch devices, even when zoomed in.</li>
 		</ul>
 				
-		<h1>Default</h1>
+		<h1>Basic</h1>
 		<p><a href="#kitchen-sink" class="modal-toggle-1">Open</a></p>
-		<pre>$.modal($('#kitchen-sink').clone());</pre>
+<pre><code>$.modal.open($('#kitchen-sink').clone(), {
+	maxHeight: 600,
+	maxWidth: 600,
+	fitViewport: true
+});
+</code></pre>
 		
 		<script type="text/javascript">
 			$(document).ready(function() {
 				
 				$('.modal-toggle-1').click(function (e) {
 					e.preventDefault();
-					$.modal($('#kitchen-sink').clone());
+					$.modal.open($('#kitchen-sink').clone(), {
+						maxHeight: 600,
+						maxWidth: 600,
+						fitViewport: true
+					});
 				});
 
 			});
 		</script>
-				
+		
 		<h2>Fixed size</h2>
 		<p><a class="modal-toggle-2" href="#kitchen-sink">Open</a></p>
 		
-<pre><code>$.modal($('#kitchen-sink').clone(), {
+<pre><code>$.modal.open($('#kitchen-sink').clone(), {
 	width: 800,
-	height: 800,
-	fitViewport: false,
-	maxHeight: null,
-	maxWidth: null,
-	extraClasses: 'modal-1'
+	height: 800
 });
 </code></pre>
 		
@@ -68,13 +95,9 @@
 				
 				$('.modal-toggle-2').click(function (e) {
 					e.preventDefault();
-					$.modal($('#kitchen-sink').clone(), {
+					$.modal.open($('#kitchen-sink').clone(), {
 						width: 800,
-						height: 800,
-						fitViewport: false,
-						maxHeight: null,
-						maxWidth: null,
-						extraClasses: 'modal-1'
+						height: 800
 					});
 				});
 
@@ -84,8 +107,7 @@
 		<h2>Maintain Aspect Ratio</h2>
 		<p><a class="modal-toggle-3" href="#kitchen-sink">Open</a></p>
 		
-<pre><code>$.modal($('&lt;img src="images/london.jpg" /&gt;'), {
-	fitViewport: false,
+<pre><code>$.modal.open($('&lt;img src="images/london.jpg" /&gt;'), {
 	keepAspect: true
 });
 </code></pre>
@@ -110,8 +132,7 @@
 						},
 						success: function () {
 							
-							$.modal(img, {
-								fitViewport: false,
+							$.modal.open(img, {
 								keepAspect: true
 							});
 							
@@ -127,8 +148,9 @@
 		<h2>Maintain Aspect Ratio + Fit Viewport</h2>
 		<p><a class="modal-toggle-4" href="#kitchen-sink">Open</a></p>
 		
-<pre><code>$.modal($('&lt;img src="images/london.jpg" /&gt;'), {
-	keepAspect: true
+<pre><code>$.modal.open($('&lt;img src="images/london.jpg" /&gt;'), {
+	keepAspect: true,
+	fitViewport: true
 });
 </code></pre>
 		
@@ -152,7 +174,8 @@
 						},
 						success: function () {
 							
-							$.modal(img, {
+							$.modal.open(img, {
+								fitViewport: true,
 								keepAspect: true
 							});
 							
@@ -168,7 +191,7 @@
 			<h2>Callbacks</h2>
 			<p><a class="modal-toggle-5" href="#">Open</a></p>
 			
-			<pre><code>$.modal('This modal will fire all 5 callbacks', {
+			<pre><code>$.modal.open('This modal will fire all 5 callbacks', {
 	init: function () {
 		alert('init');
 	},
@@ -192,7 +215,7 @@
 					
 					$('.modal-toggle-5').click(function (e) {
 						e.preventDefault();
-						$.modal('This modal will fire all 5 callbacks', {
+						$.modal.open('This modal will fire all 5 callbacks', {
 							init: function () {
 								alert('init');
 							},
@@ -221,7 +244,7 @@
 		<div class="dummy-content" style="display: none;">
 			<div id="kitchen-sink" class="kitchen-sink">
 				<h1>HTML Ipsum Presents</h1>
-				<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+				<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. <a href="#" title="jQuery Modal supports multiple instances" class="open-modal2">Open second modal</a></p>
 				<p><strong>Pellentesque habitant morbi tristique</strong> senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. <em>Aenean ultricies mi vitae est.</em> Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, <code>commodo vitae</code>, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. <a href="#">Donec non enim</a> in turpis pulvinar facilisis. Ut felis.</p>
 				<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
 				

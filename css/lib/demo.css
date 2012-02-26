@@ -122,3 +122,102 @@ pre {white-space:pre-wrap;}
 	background:#F5F5F5;
 	padding:30px;
 }
+
+
+
+/* clearly these modal2 styles should be duped up with the .modal
+selectors but as not to polute the projects modal.css this'll do */
+
+/* functional styles */
+
+.modal2 {
+	position: absolute;
+	display: none;
+	z-index: 2000;
+}
+
+	.modal2-content {
+		height: 100%;
+		overflow: auto;
+		width: 100%;
+	}
+	
+.modal2-overlay {
+	display: none;
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	z-index: 1500;
+}
+
+.modal2-isopen select {
+	_visibility: hidden;
+}
+
+.modal2-isopen .modal2 select {
+	_visibility: visible;
+}
+	
+/* aesthetic styles */
+
+.modal2 {
+	background: #fff;
+	border: 10px solid gray;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+	margin: 25px;
+	padding: 30px;
+}
+
+	.modal2-close {
+		color: #444;
+		cursor: pointer;
+		font-size: 10px;
+		font-weight: bold;
+		position: absolute;
+		right: 8px;
+		text-decoration: none;
+		text-transform: uppercase;
+		top: 8px;
+	}
+
+.modal2-overlay {
+	background: #000;
+}
+
+.modal2.modal-alt {
+	background: #333;
+	border-color: #444;
+	border-width: 3px;
+	color: #f2f2f2;
+	margin: 10px;
+	padding: 25px;
+}
+
+	.modal2.modal-alt .modal2-close {
+		color: #f2f2f2;
+	}
+	
+		.modal2.modal-alt a {
+			color: yellow;
+		}
+
+.modal2-isloading {
+	border: none;
+	padding: 0;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	width: 50px;
+	height: 50px;
+}
+
+	/* NOTE: #2 if using an _animated_ gif IE7 requires it to be set on .modal2-content not .modal2 otherwise the scrollbars will flicker */
+	.modal2-isloading .modal2-content {
+		background: #fff url(../images/loader.gif) center center no-repeat;
+	}
+
+	.modal2-isloading .modal2-close {
+		display: none;
+	}

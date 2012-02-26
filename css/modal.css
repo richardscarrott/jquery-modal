@@ -1,94 +1,77 @@
-	
-	/* functional styles */
+    
+    /* functional styles */
 
-	.modal {
-		position: absolute;
-		display: none;
-		z-index: 1000;
-	}
-	
-		.modal-content {
-			height: 100%;
-			overflow: auto;
-			width: 100%;
-		}
-		
-	.modal-overlay {
-		display: none;
-		height: 100%;
-		left: 0;
-		position: absolute;
-		top: 0;
-		width: 100%;
-		z-index: 500;
-	}
+    .modal {
+        position: absolute;
+        display: none;
+        z-index: 1000;
+    }
+    
+        .modal-content {
+            height: 100%;
+            overflow: auto;
+            /* width: 100%; IE6/7 won't shrink wrap '.modal' if this is set to 100% */
+        }
+        
+    .modal-overlay {
+        display: none;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 500;
+    }
 
-	.modal-isopen select {
-		_visibility: hidden;
-	}
+    .modal-isopen select {
+        _visibility: hidden;
+    }
 
-	.modal-isopen .modal select {
-		_visibility: visible;
-	}
-		
-	/* aesthetic styles */
-	
-	.modal {
-		background: #fff;
-		border: 10px solid gray;
-		box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-		margin: 25px;
-		padding: 30px;
-	}
-	
-		.modal-close {
-			color: #444;
-			cursor: pointer;
-			font-size: 10px;
-			font-weight: bold;
-			position: absolute;
-			right: 8px;
-			text-decoration: none;
-			text-transform: uppercase;
-			top: 8px;
-		}
-	
-	.modal-overlay {
-		background: #000;
-	}
-	
-	.modal-1 {
-		background: #333;
-		border-color: #444;
-		border-width: 3px;
-		color: #f2f2f2;
-		margin: 10px;
-		padding: 15px;
-	}
-	
-		.modal-1 .modal-close {
-			color: #f2f2f2;
-		}
-		
-			.modal-1 a {
-				color: yellow;
-			}
+    .modal-isopen .modal select {
+        _visibility: visible;
+    }
+        
+    /* aesthetic styles */
+    
+    .modal {
+        background: #fff;
+        border: 10px solid gray;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        margin: 25px;
+        padding: 30px;
+    }
+    
+        .modal-close {
+            color: #444;
+            cursor: pointer;
+            font-size: 10px;
+            font-weight: bold;
+            position: absolute;
+            right: 8px;
+            text-decoration: none;
+            text-transform: uppercase;
+            top: 8px;
+        }
+    
+    .modal-overlay {
+        background: #000;
+    }
 
-	.modal-isloading {
-		border: none;
-		padding: 0;
-		-moz-border-radius: 10px;
-		-webkit-border-radius: 10px;
-		border-radius: 10px;
-		width: 50px;
-		height: 50px;
-	}
+    .modal.modal-isloading {
+        border: none;
+        padding: 0;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        border-radius: 10px;
+        width: 50px;
+        height: 50px;
+    }
 
-		/* NOTE: #2 if using an _animated_ gif IE7 requires it to be set on .modal-content not .modal otherwise the scrollbars will flicker */
-		.modal-isloading .modal-content {
-			background: #fff url(../images/loader.gif) center center no-repeat;
-		}
+        /* NOTE: #2 if using an _animated_ gif IE7 requires it to be set on .modal-content not .modal otherwise the scrollbars will flicker */
+        .modal.modal-isloading .modal-content {
+            background: #fff url(../images/loader.gif) center center no-repeat;
+        }
 
-		.modal-isloading .modal-close {
-			display:none;
-		}
+        .modal.modal-isloading .modal-close {
+            display: none;
+        }
