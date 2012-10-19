@@ -1,5 +1,5 @@
 /*
- * jQuery Modal Plugin v0.2.2
+ * jQuery Modal Plugin v0.2.4
  *
  * Copyright (c) 2012 Richard Scarrott
  * http://www.richardscarrott.co.uk
@@ -35,7 +35,7 @@
 
     $.Modal.prototype = {
 
-        version: '0.2.2',
+        version: '0.2.4',
 
         isInitialized: false,
 
@@ -54,8 +54,9 @@
             openSpeed: 'fast',
             closeSpeed: 'fast',
             closeText: 'close X',
-            extraClasses: null,
-            position: null, // [top, left],
+            className: null,
+            overlayClassName: null,
+            position: {}, // { top: 50, left: 50 }
             closeSelector: '.modal-content-close',
             closeKeyCode: 27, // Esc,
             closeOverlay: true,
@@ -66,7 +67,8 @@
             beforeOpen: $.noop,
             afterOpen: $.noop,
             beforeClose: $.noop,
-            afterClose: $.noop
+            afterClose: $.noop,
+            afterResize: $.noop
 
         },
 
@@ -78,6 +80,7 @@
                 this._objects();
                 this._events();
                 this.options.init(this.objects);
+                this.objects.doc.trigger('modalInit', [this.objects]);
                 this.isInitialized = true;
             }
 
@@ -181,22 +184,24 @@
 
             this.objects.modal
                 .removeClass()
-                // add '.modal' back as it's been removed above (cannot just remove extraClasses, in cases where extraClasses have changed) 
-                .addClass(this.options.extraClasses ? this.modalName + ' ' + this.options.extraClasses : this.modalName)
+                // add '.modal' back as it's been removed above (cannot just remove className, in cases where className has changed) 
+                .addClass(this.options.className ? this.modalName + ' ' + this.options.className : this.modalName)
                 .css(this._getPosition());
 
             this.options.beforeOpen(this.objects);
+            this.objects.doc.trigger('modalBeforeOpen', [this.objects]);
             this._setIsOpen(true);
 
             this.objects.modal.fadeIn(speed, function () {
                 self.options.afterOpen(self.objects);
+                self.objects.doc.trigger('modalAfterOpen', [self.objects]);
             });
 
             if (this.options.modal) {
                 this._sizeOverlay();
                 this.objects.overlay
                     .removeClass()
-                    .addClass(this.options.extraClasses ? this.modalName + '-overlay ' + this.options.extraClasses : this.modalName + '-overlay')
+                    .addClass(this.options.overlayClassName ? this.modalName + '-overlay ' + this.options.overlayClassName : this.modalName + '-overlay')
                     .fadeTo(speed, this.options.overlayOpacity);
             }
 
@@ -247,6 +252,9 @@
                         .css('opacity', this.options.overlayOpacity)
                         .show();
                 }
+
+                this.options.afterResize(this.objects);
+                this.objects.doc.trigger('modalAfterResize', [this.objects]);
             }
 
             return;
@@ -266,7 +274,7 @@
         loading: function (beforeClose) {
 
             this.open(undefined, {
-                extraClasses: this.modalName + '-isloading',
+                className: this.modalName + '-isloading',
                 beforeClose: beforeClose || $.noop
             });
 
@@ -279,12 +287,14 @@
                 speed = animate || animate === undefined ? this.options.closeSpeed : 0;
 
             this.options.beforeClose(this.objects);
+            this.objects.doc.trigger('modalBeforeClose', [this.objects]);
 
             this.objects.modal.fadeOut(speed, function () {
 
                 self._resetStyles();
                 self._setIsOpen(false);
                 self.options.afterClose(self.objects);
+                self.objects.doc.trigger('modalAfterClose', [self.objects]);
 
             });
 
@@ -380,20 +390,14 @@
                 }
             }
 
-            if ($.isArray(this.options.position)) {
-                top = this.options.position[0];
-                left = this.options.position[1];
-            }
-            else {
-                // set coords
-                top = centreCoords.y - (height / 2);
-                left = centreCoords.x - (width / 2);
+            // set coords
+            top = this.options.position.top !== undefined ? this.options.position.top : centreCoords.y - (height / 2);
+            left = this.options.position.left !== undefined ? this.options.position.left : centreCoords.x - (width / 2);
 
-                // check popup doesn't display outisde of document
-                if (!options.fitViewport) {
-                    top = top < scrollPos.y ? scrollPos.y : top;
-                    left = left < scrollPos.x ? scrollPos.x : left;
-                }
+            // check popup doesn't display outisde of document
+            if (!options.fitViewport) {
+                top = top < scrollPos.y ? scrollPos.y : top;
+                left = left < scrollPos.x ? scrollPos.x : left;
             }
 
             return {
