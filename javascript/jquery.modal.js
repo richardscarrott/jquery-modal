@@ -1,5 +1,10 @@
+/*global jQuery */
+/*jshint bitwise: true, camelcase: true, curly: true, eqeqeq: true, forin: true,
+immed: true, indent: 4, latedef: true, newcap: true, nonew: true, quotmark: single,
+undef: true, unused: true, strict: true, trailing: true, maxparams: 3, browser: true */
+
 /*
- * jQuery Modal Plugin v0.2.4
+ * jQuery Modal Plugin v0.2.5 - https://github.com/richardscarrott/jquery-modal/
  *
  * Copyright (c) 2012 Richard Scarrott
  * http://www.richardscarrott.co.uk
@@ -12,6 +17,8 @@
  
 (function ($, undefined) {
 
+    'use strict';
+
     // touch detection required to ensure viewport calculation returns 'CSS pixels'
     // via window.innerWidth instead of the virtual viewport dimension via window.outerWidth
     if (!$.support.touch) {
@@ -21,7 +28,7 @@
     $.Modal = function (name, defaults) {
 
         if (!(this instanceof $.Modal)) {
-            throw Error('$.Modal() has been called without the \'new\' keyword.');
+            throw new Error('$.Modal() has been called without the \'new\' keyword.');
         }
 
         this.modalName = name;
@@ -140,7 +147,7 @@
                 });
 
             this.objects.overlay
-                .bind('click.' + this.modalName, function (e) {
+                .bind('click.' + this.modalName, function () {
                     if (self.options.closeOverlay) {
                         self.close();
                     }
@@ -184,7 +191,7 @@
 
             this.objects.modal
                 .removeClass()
-                // add '.modal' back as it's been removed above (cannot just remove className, in cases where className has changed) 
+                // add '.modal' back as it's been removed above (cannot just remove className, in cases where className has changed)
                 .addClass(this.options.className ? this.modalName + ' ' + this.options.className : this.modalName)
                 .css(this._getPosition());
 
@@ -340,13 +347,15 @@
                 centreCoords = {
                     x: (viewport.x / 2) + scrollPos.x,
                     y: (viewport.y / 2) + scrollPos.y
-                };
+                },
+                h, // throwaway var to hold a height value
+                w; // throwaway var to hold a width value
 
             // get natural height
             if (height === 'auto') {
                 // ensure that if we set the width to maxWidth when calculating natural height
                 // it's actually the smallest it'll ever be, i.e. the viewport might be smaller causing the content to be smaller
-                var w = maxWidth > viewport.x ? viewport.x : maxWidth;
+                w = maxWidth > viewport.x ? viewport.x : maxWidth;
 
                 // if container width is auto or exceeds maxwidth set to maxwidth else set to container width
                 this.objects.modal.width(maxWidth && width === 'auto' || maxWidth && width > maxWidth ? w : width);
@@ -356,7 +365,7 @@
 
             // get natural width
             if (width === 'auto') {
-                var h = maxHeight > viewport.y ? viewport.y : maxHeight;
+                h = maxHeight > viewport.y ? viewport.y : maxHeight;
                 // we know here that height will bo longer be 'auto'
                 this.objects.modal.height(maxHeight && height > maxHeight ? h : height);
                 width = this.objects.modal.width();
@@ -379,7 +388,7 @@
 
             // check aspect ratio
             if (options.keepAspect) {
-                var h = height; // current height
+                h = height; // current height
 
                 height = oldHeight * width / oldWidth;
 
@@ -405,7 +414,7 @@
                 height: height,
                 top: top,
                 left: left
-            }
+            };
         },
 
         // removes modal from DOM
