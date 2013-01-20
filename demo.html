@@ -10,7 +10,7 @@
 	<link rel="stylesheet" type="text/css" href="css/modal.css" media="all" />
 	
 	<script type="text/javascript" src="javascript/lib/jquery.js"></script>
-	<script type="text/javascript" src="javascript/jquery.modal.js"></script>
+	<script type="text/javascript" src="javascript/jquery.rs.modal.js"></script>
 	
 	<style type="text/css">
 		
@@ -25,7 +25,7 @@
 		$(document).ready(function() {
 
 			// for lack of a better name create 'modal2'
-			var modal2 = new $.Modal('modal2');
+			var modal2 = new $.rs.Modal('modal2');
 
 			$('body')
 				.delegate('.open-modal2', 'click', function (e) {
@@ -45,7 +45,7 @@
 <body>
 	<div id="container">
 	
-		<h1>jQuery Modal Plugin</h1>
+		<h1>jQuery RS Modal</h1>
 		<p>Fork on <a href="https://github.com/richardscarrott/jquery-modal">GitHub</a></p>
 		<p>This was written to address some issues I've experienced when working with a number of existing modal plugins:</p>
 		

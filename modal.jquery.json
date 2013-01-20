@@ -1,0 +1,36 @@
+{
+  "name": "rs.modal",
+  "title": "jQuery RS Modal",
+  "description": "jQuery RS Modal is a tried and tested modal plugin with a full but simple API.",
+  "keywords": [
+    "modal",
+    "dialog",
+    "popup",
+    "window",
+    "ui"
+  ],
+  "version": "v0.3.0",
+  "author": {
+    "name": "Richard Scarrott",
+    "email": "riscarrott@googlemail.com",
+    "url": "http://richardscarrott.co.uk"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://www.opensource.org/licenses/mit-license.php"
+    },
+    {
+    "type": "GPL",
+    "url": "http://www.gnu.org/licenses/gpl.html"
+    }
+  ],
+  "bugs": "https://github.com/richardscarrott/jquery-modal/issues",
+  "homepage": "http://www.richardscarrott.co.uk/assets/javascript/jquery/modal/demo/",
+  "demo": "http://www.richardscarrott.co.uk/assets/javascript/jquery/modal/demo/",
+  "docs": "https://github.com/richardscarrott/jquery-modal#readme",
+  "download": "https://github.com/richardscarrott/jquery-modal",
+  "dependencies": {
+    "jquery": ">=1.4"
+  }
+}

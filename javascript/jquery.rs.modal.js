@@ -1,10 +1,11 @@
 /*global jQuery */
 /*jshint bitwise: true, camelcase: true, curly: true, eqeqeq: true, forin: true,
 immed: true, indent: 4, latedef: true, newcap: true, nonew: true, quotmark: single,
-undef: true, unused: true, strict: true, trailing: true, maxparams: 3, browser: true */
+undef: true, unused: true, strict: true, trailing: true, browser: true */
 
 /*
- * jQuery Modal Plugin v0.2.5 - https://github.com/richardscarrott/jquery-modal/
+ * jQuery RS Modal v0.3.0
+ * https://github.com/richardscarrott/jquery-modal/
  *
  * Copyright (c) 2012 Richard Scarrott
  * http://www.richardscarrott.co.uk
@@ -25,10 +26,14 @@ undef: true, unused: true, strict: true, trailing: true, maxparams: 3, browser: 
         $.support.touch = 'ontouchend' in document;
     }
 
-    $.Modal = function (name, defaults) {
+    if (!$.rs) {
+        $.rs = {};
+    }
 
-        if (!(this instanceof $.Modal)) {
-            throw new Error('$.Modal() has been called without the \'new\' keyword.');
+    $.rs.Modal = function (name, defaults) {
+
+        if (!(this instanceof $.rs.Modal)) {
+            throw new Error('$.rs.Modal() has been called without the \'new\' keyword.');
         }
 
         this.modalName = name;
@@ -40,9 +45,9 @@ undef: true, unused: true, strict: true, trailing: true, maxparams: 3, browser: 
         return;
     };
 
-    $.Modal.prototype = {
+    $.rs.Modal.prototype = {
 
-        version: '0.2.4',
+        version: '0.3.0',
 
         isInitialized: false,
 
@@ -433,6 +438,6 @@ undef: true, unused: true, strict: true, trailing: true, maxparams: 3, browser: 
 
     };
 
-    $.modal = new $.Modal('modal');
+    $.modal = new $.rs.Modal('modal');
 
 })(jQuery);

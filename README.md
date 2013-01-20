@@ -125,10 +125,10 @@ Closes modal, pass in boolean to define whether close should fade out
 Removes modal from DOM and unbinds all associated events
 
 ### Constructor
-#### new $.Modal(name, [defaults])
-Creates new instance of $.Modal where name (string) is used as a prefix for the generated mark-ups classNames and defaults (object) is merged in with the above options to specialise the instance.
+#### new $.rs.Modal(name, [defaults])
+Creates new instance of $.rs.Modal where name (string) is used as a prefix for the generated mark-ups classNames and defaults (object) is merged in with the above options to specialise the instance.
 
-    var myModal = new $.Modal('mymodal', {
+    var myModal = new $.rs.Modal('mymodal', {
         maxWidth: 500,
         maxHeight: 600,
         fitViewport: true,
