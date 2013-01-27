@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="jQuery RS Modal : jQuery RS Modal is a tried and tested modal plugin with a full but simple API." />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>jQuery RS Modal</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/richardscarrott/jquery-modal">View on GitHub</a>
+
+          <h1 id="project_title">jQuery RS Modal</h1>
+          <h2 id="project_tagline">jQuery RS Modal is a tried and tested modal plugin with a full but simple API.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/richardscarrott/jquery-modal/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/richardscarrott/jquery-modal/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h2>Quick start</h2>
+
+<h3>JavaScript</h3>
+
+<pre><code>$.modal.open('This is some content');
+</code></pre>
+
+<h3>Generated mark-up</h3>
+
+<pre><code>&lt;div class="modal-overlay"&gt;&lt;/div&gt;
+
+&lt;div class="modal"&gt;
+    &lt;div class="modal-content"&gt;
+
+        &lt;!-- content --&gt;
+
+    &lt;/div&gt;
+    &lt;a href="#" class="modal-close"&gt;close X&lt;/a&gt;
+&lt;/div&gt;
+</code></pre>
+
+<h2>DOCS</h2>
+
+<h3>Overview</h3>
+
+<p>This was written to address some issues I've experienced when working with a number of existing modal plugins:</p>
+
+<ul>
+<li>It dynamically sizes the modal based on it's final state, so any styles applied based on .modal * will be taken into account and the modal correctly sized.</li>
+<li>It avoids the use of fixed positioning to ensure users can always get to the content even if it's outside of the viewport which also means it supports touch devices and IE6.</li>
+<li>It allows extra classes to be added to the container element (not just the content element) to easily change and extend different 'skins'.</li>
+<li>It provides a constructor function to allow for multiple instances.</li>
+<li>It correctly positions itself on touch devices, even when zoomed in.</li>
+</ul><h3>Options</h3>
+
+<h4>width: 'auto' (string, number)</h4>
+
+<p>Defines the width of the modal, if set to 'auto' the width will be automatically calculated based on size of content</p>
+
+<h4>height: 'auto' (string, number)</h4>
+
+<p>Defines the height of the modal, if set to 'auto' the height will be automatically calculated based on size of content</p>
+
+<h4>maxWidth: null (number)</h4>
+
+<p>Defines the maxium width of the modal</p>
+
+<h4>maxHeight: null (number)</h4>
+
+<p>Defines the maxium height of the modal</p>
+
+<h4>fitViewport: false (boolean)</h4>
+
+<p>If set to true the modal will be sized to fit within the viewport</p>
+
+<h4>keepAspect: false (boolean)</h4>
+
+<p>If set to true the modal will maintain it's original aspect ratio if / when resized</p>
+
+<h4>modal: true (boolean)</h4>
+
+<p>If set to true the page will blocked with an overlay div to stop interaction</p>
+
+<h4>openSpeed: 'fast' (string, number)</h4>
+
+<p>Defines speed modal will fade in. Can take any standard jQuery speed strings or number</p>
+
+<h4>closeSpeed: 'fast' (string, number)</h4>
+
+<p>Defines speed modal will fade out. Can take any standard jQuery speed strings or number</p>
+
+<h4>closeText: 'close X' (string)</h4>
+
+<p>Defines text to be applied to close element</p>
+
+<h4>extraClasses: null (string)</h4>
+
+<p>Defines any extra space seperated classes to be added to the outer .modal element</p>
+
+<h4>position: null (array - [top, left])</h4>
+
+<p>Allows final modal position to be overridden if centering is not desired</p>
+
+<h4>closeSelector: '.modal-content-close' (string)</h4>
+
+<p>Any elements wihtin the modal matching the closeSelector will close the modal on click</p>
+
+<h4>closeKeyCode: 27 (number)</h4>
+
+<p>Keycode used to close the modal, default to Esc key</p>
+
+<h4>closeOverlay: true (boolean)</h4>
+
+<p>Defines whether clicking on the overlay will close the modal</p>
+
+<h4>overlayOpacity: 0.5 (number)</h4>
+
+<p>Defines the overlay opacity; it's within JS and not CSS to a) take advantage of jQuery's cross browser opacity normalisation and b) because &lt;= IE7 can't fadeIn translucent elements</p>
+
+<h3>Callbacks</h3>
+
+<h4>The following data is passed to all callbacks</h4>
+
+<pre><code>{
+    modal (jQuery object)
+    content (jQuery object)
+    closeBtn (jQuery object)
+    overlay (jQuery object)
+}
+</code></pre>
+
+<h4>init: null (function)</h4>
+
+<p>See tin</p>
+
+<h4>beforeOpen: null (function)</h4>
+
+<p>See tin</p>
+
+<h4>afterOpen: null (function)</h4>
+
+<p>See tin</p>
+
+<h4>beforeClose: null (function)</h4>
+
+<p>See tin</p>
+
+<h4>afterClose: null (function)</h4>
+
+<p>See tin</p>
+
+<h3>Methods</h3>
+
+<h4>open $.modal.open(content, [options])</h4>
+
+<p>Displays content in modal using options, content can be a selector, element, HTML string, or jQuery object (anything $.fn.append() can take)</p>
+
+<h4>refresh $.modal.refresh()</h4>
+
+<p>Repositions modal, useful if content has changed</p>
+
+<h4>update $.modal.update(newContent, [options])</h4>
+
+<p>Replaces modal content with newContent, unlike $.modal(), options persist</p>
+
+<h4>loading $.modal.loading([beforeClose])</h4>
+
+<p>Helper method to show modal in a loading state, use .modal-isloading for styling.
+A function can be passed in to be called before close; this can be useful if ajax request needs to be aborted</p>
+
+<h4>close $.modal.close([animate])</h4>
+
+<p>Closes modal, pass in boolean to define whether close should fade out</p>
+
+<h4>destroy $.modal.destroy()</h4>
+
+<p>Removes modal from DOM and unbinds all associated events</p>
+
+<h3>Constructor</h3>
+
+<h4>new $.rs.Modal(name, [defaults])</h4>
+
+<p>Creates new instance of $.rs.Modal where name (string) is used as a prefix for the generated mark-ups classNames and defaults (object) is merged in with the above options to specialise the instance.</p>
+
+<pre><code>var myModal = new $.rs.Modal('mymodal', {
+    maxWidth: 500,
+    maxHeight: 600,
+    fitViewport: true,
+    closeText: 'X'
+});
+
+myModal.open('this is some content');
+
+// Generated mark-up
+&lt;div class="mymodal-overlay"&gt;&lt;/div&gt;
+
+&lt;div class="mymodal"&gt;
+    &lt;div class="mymodal-content"&gt;
+
+        &lt;!-- content --&gt;
+
+    &lt;/div&gt;
+    &lt;span class="mymodal-close"&gt;X&lt;/span&gt;
+&lt;/div&gt;
+</code></pre>
+
+<p><a href="http://richardscarrott.co.uk/contact" title="Richard Scarrott">If you have any questions or ideas you can contact me here</a></p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">jQuery RS Modal maintained by <a href="https://github.com/richardscarrott">richardscarrott</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
